@@ -1,12 +1,10 @@
-using ZombieManager;
-
 namespace ZombieManager
 {
     public class Program
     {
         static readonly List<Zombie> zombies = new List<Zombie>();
         static readonly List<Hunter> hunters = new List<Hunter>();
-        static readonly List<Vector2> overlap = new List<Vector2>();
+        static readonly List<Vector2> intersects = new List<Vector2>();
 
         static public void Main(string[] args)
         {
@@ -31,11 +29,12 @@ namespace ZombieManager
                     random.Next(fieldStart.X, fieldSize.X),
                     random.Next(fieldStart.Y, fieldSize.Y)
                 );
-                
+
                 zombies.Add(zombie);
             }
 
-            for (int i = 0; i < hunterAmount; i++) {
+            for (int i = 0; i < hunterAmount; i++)
+            {
                 Hunter hunter = new Hunter();
                 hunter.Name = "Hunter" + (i + 1);
                 hunter.Position = new Vector2(
@@ -51,8 +50,9 @@ namespace ZombieManager
                     return hunter.Position.Equals(zombie.Position);
                 });
 
-                if (match != null) {
-                    overlap.Add(zombie.Position);
+                if (match != null)
+                {
+                    intersects.Add(zombie.Position);
                 }
             });
 
@@ -61,24 +61,26 @@ namespace ZombieManager
 
             Console.SetCursorPosition(0, fieldStart.Y + fieldSize.Y);
             Console.Write("Intersects: ");
-            overlap.ForEach(intersect => {
-                Console.Write(intersect.ToString() + " ");
-            });
-            Console.WriteLine();
-
+            Console.WriteLine(
+                intersects.Count == 0 ? "None" : intersects
+                .ConvertAll(vector => vector.ToString())
+                .Aggregate((vector1, vector2) => vector1.ToString() + ", " + vector2.ToString())
+            );
+            
             Console.ReadLine();
         }
-        
-        private static void DrawEntities() {
+
+        private static void DrawEntities()
+        {
             zombies.ForEach(zombie => {
                 Console.SetCursorPosition(zombie.Position.X, zombie.Position.Y);
 
-                Vector2? intersect = overlap.FirstOrDefault(vector2 => {
+                Vector2? intersect = intersects.FirstOrDefault(vector2 => {
                     return vector2.Equals(zombie.Position);
                 });
 
-
-                if (intersect != null) {
+                if (intersect != null)
+                {
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.ForegroundColor = ConsoleColor.Red;
 
@@ -86,7 +88,8 @@ namespace ZombieManager
 
                     Console.ResetColor();
                 }
-                else {
+                else
+                {
                     Console.Write("-");
                 }
             });
@@ -94,11 +97,12 @@ namespace ZombieManager
             hunters.ForEach(hunter => {
                 Console.SetCursorPosition(hunter.Position.X, hunter.Position.Y);
 
-                Vector2? intersect = overlap.FirstOrDefault(vector2 => {
+                Vector2? intersect = intersects.FirstOrDefault(vector2 => {
                     return vector2.Equals(hunter.Position);
                 });
 
-                if (intersect == null) {
+                if (intersect == null)
+                {
                     Console.Write("+");
                 }
             });
