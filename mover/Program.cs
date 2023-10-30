@@ -49,11 +49,13 @@ namespace ZombieManager
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            while (zombies.Count > 0)
+            bool canceled = false;
+            while (zombies.Count > 0 && canceled == false)
             {
                 Vector2? direction = AskForDirection();
                 if (direction == null)
                 {
+                    canceled = true;
                     break;
                 }
 
@@ -77,6 +79,8 @@ namespace ZombieManager
             }
 
             stopwatch.Stop();
+            Console.Clear();
+
             string elapsedTime = String.Format(
                 "{0:00}m:{1:00}.{2:000}s",
                 stopwatch.Elapsed.Minutes,
@@ -84,16 +88,25 @@ namespace ZombieManager
                 stopwatch.Elapsed.Milliseconds / 100
             );
 
-            Console.Clear();
+            String finishText = "";
+            if (canceled)
+            {
+                finishText = "Game over, elapsed time: ";
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            else
+            {
+                finishText = "Game won, elapsed time: ";
+                Console.ForegroundColor = ConsoleColor.Green;
+            }
 
-            //Center text and draw game won stuff
-            string finishText = "Game won, elapsed time: ";
             Console.SetCursorPosition(
-                fieldStart.X + (fieldSize.X / 2) - (finishText.Length / 2) - (elapsedTime.Length / 2) -4,
+                fieldStart.X + (fieldSize.X / 2) - (finishText.Length / 2) - (elapsedTime.Length / 2) - 4,
                 fieldStart.Y + (fieldSize.Y / 2)
             );
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(finishText + elapsedTime);
+
             Console.ResetColor();
 
             while (Console.ReadKey(true).Key != ConsoleKey.Enter) {}
