@@ -1,11 +1,12 @@
-﻿namespace ZombieManager;
+namespace ZombieManager;
 public class Humanoid
 {
     private double health = 100;
     private double maxHealth = 100;
 
     public string Name { get; set; }
-    public double Damage = 10;
+    public Vector2 Position { get; set; } = new Vector2();
+    public double Damage { get; set; } = 10;
     public double Health
     {
         get
@@ -14,7 +15,7 @@ public class Humanoid
         }
         set
         {
-            if (value > maxHealth) { throw new Exception(); }
+            if (value > maxHealth) { return; }
             health = maxHealth;
         }
     }
@@ -26,12 +27,10 @@ public class Humanoid
         }
         set
         {
-            if (value < 0) { throw new Exception(); }
+            if (value < 0) { return; }
             maxHealth = value;
         }
     }
-
-    public Vector2 Position = new Vector2();
 
     protected Humanoid()
     {
