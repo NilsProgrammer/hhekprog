@@ -44,6 +44,11 @@ namespace ZombieManager
             }
 
             lastPosition = hunter.Position.Clone();
+
+            Console.Write("Press any key when you are ready to start the game");
+            Console.ReadKey();
+            Console.Clear();
+
             DrawEntities(hunter, zombies);
 
             Stopwatch stopwatch = new Stopwatch();
@@ -68,7 +73,7 @@ namespace ZombieManager
                 //Move hunter
                 hunter.Position.Add(direction);
 
-                DrawEntities(hunter, zombies);
+                DrawEntities(hunter, null);
                 lastPosition = hunter.Position.Clone();
 
                 //Remove zombie that we killed
@@ -135,7 +140,7 @@ namespace ZombieManager
             return null;
         }
 
-        private static void DrawEntities(Hunter hunter, List<Zombie> zombies)
+        private static void DrawEntities(Hunter hunter, List<Zombie>? zombies)
         {
             if (lastPosition != null)
             {
@@ -145,7 +150,7 @@ namespace ZombieManager
                 Console.ResetColor();
             }
 
-            zombies.ForEach(zombie => {
+            zombies?.ForEach(zombie => {
                 Console.SetCursorPosition(zombie.Position.X, zombie.Position.Y);
 
                 if (zombie.Position.Equals(hunter.Position) == false)
