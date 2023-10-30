@@ -9,6 +9,7 @@ namespace ZombieManager
         {
             Console.Clear();
 
+            //Setup game variables
             Random random = new Random();
             List<Zombie> zombies = new List<Zombie>();
             Hunter hunter = new Hunter();
@@ -18,8 +19,14 @@ namespace ZombieManager
             hunter.Position.X = random.Next(fieldStart.X, fieldSize.X);
             hunter.Position.Y = random.Next(fieldStart.Y, fieldSize.Y);
 
+            if (OperatingSystem.IsWindows())
+            {
+                Console.SetBufferSize(fieldSize.X, fieldSize.Y);
+            }
+            
             Console.WriteLine("Welcome to zombie hunter, \nuse wasd or arrow keys to move your hunter (green) \nto kill the zombies(red)");
 
+            //Ask for zombie amount
             Console.WriteLine("How many zombies do you want?");
             int zombieAmount = AskForAmount();
             Console.Clear();
@@ -52,7 +59,7 @@ namespace ZombieManager
 
                 //Check if positions.[X|Y] > 0
                 Vector2 newPosition = Vector2.Add(hunter.Position, direction);
-                if (newPosition.X < 0 || newPosition.Y < 0)
+                if (newPosition.X < 0 || newPosition.Y < 0 || newPosition.X >= fieldSize.X || newPosition.Y >= fieldSize.Y)
                 {
                     continue;
                 }
@@ -71,7 +78,7 @@ namespace ZombieManager
 
             stopwatch.Stop();
             string elapsedTime = String.Format(
-                "{0:00}m:{1:00}.{2:00}s",
+                "{0:00}m:{1:00}.{2:000}s",
                 stopwatch.Elapsed.Minutes,
                 stopwatch.Elapsed.Seconds,
                 stopwatch.Elapsed.Milliseconds / 100
@@ -79,6 +86,7 @@ namespace ZombieManager
 
             Console.Clear();
 
+            //Center text and draw game won stuff
             string finishText = "Game won, elapsed time: ";
             Console.SetCursorPosition(
                 fieldStart.X + (fieldSize.X / 2) - (finishText.Length / 2) - (elapsedTime.Length / 2) -4,
@@ -119,9 +127,6 @@ namespace ZombieManager
         {
             if (lastPosition != null)
             {
-                Debug.WriteLine("Last Position " + lastPosition.ToString());
-                Debug.WriteLine("Current Position: " + hunter.Position);
-                
                 Console.SetCursorPosition(lastPosition.X, lastPosition.Y);
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.Write(" ");
