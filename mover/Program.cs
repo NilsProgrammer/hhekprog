@@ -4,7 +4,7 @@ namespace ZombieManager
 {
     public class Program
     {
-        static Vector2? lastPosition;
+        private static Vector2? lastPosition;
         static public void Main(string[] args)
         {
             Console.Clear();
