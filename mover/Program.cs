@@ -104,7 +104,6 @@ namespace ZombieManager
                 fieldStart.X + (fieldSize.X / 2) - (finishText.Length / 2) - (elapsedTime.Length / 2) - 4,
                 fieldStart.Y + (fieldSize.Y / 2)
             );
-            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(finishText + elapsedTime);
 
             Console.ResetColor();
