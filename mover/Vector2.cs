@@ -1,4 +1,4 @@
-﻿namespace ZombieManager;
+namespace ZombieManager;
 public class Vector2
 {
     public int X { get; set; } = 0;
@@ -8,6 +8,11 @@ public class Vector2
     public static Vector2 Add(Vector2 v1, Vector2 v2)
     {
         return new Vector2(v1.X + v2.X, v1.Y + v2.Y);
+    }
+
+    public static Vector2 Div(Vector2 vector, int divisor)
+    {
+        return new Vector2(vector.X / divisor, vector.Y / divisor);
     }
 
     public Vector2() {}
