@@ -8,8 +8,9 @@ namespace ZombieManager
         static public void Main(string[] args)
         {
             Console.Clear();
-
+            
             //Setup game variables
+
             Random random = new Random();
             List<Zombie> zombies = new List<Zombie>();
             Hunter hunter = new Hunter();
@@ -23,10 +24,20 @@ namespace ZombieManager
             {
                 Console.SetBufferSize(fieldSize.X, fieldSize.Y);
             }
-            
-            Console.WriteLine("Welcome to zombie hunter, \nuse wasd or arrow keys to move your hunter (green) \nto kill the zombies(red)");
 
-            //Ask for zombie amount
+            //Write game rules
+            Console.WriteLine("Welcome to zombie hunter");
+            Console.Write("Use WASD or ARROW keys to move your ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Hunter");
+            Console.ResetColor();
+            Console.Write("To kill the ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Zombies");
+            Console.ResetColor();
+            Console.WriteLine("Use ESCAPE to surrender");
+            
+            //Ask for zombie amount and generate zombies
             Console.WriteLine("How many zombies do you want?");
             int zombieAmount = AskForAmount();
             Console.Clear();
@@ -48,6 +59,7 @@ namespace ZombieManager
             Console.Write("Press any key when you are ready to start the game");
             Console.ReadKey();
             Console.Clear();
+            Console.CursorVisible = false;
 
             DrawEntities(hunter, zombies);
 
@@ -70,6 +82,7 @@ namespace ZombieManager
                 {
                     continue;
                 }
+
                 //Move hunter
                 hunter.Position.Add(direction);
 
@@ -93,7 +106,7 @@ namespace ZombieManager
                 stopwatch.Elapsed.Milliseconds / 100
             );
 
-            String finishText = "";
+            string finishText = "";
             if (canceled)
             {
                 finishText = "Game over, elapsed time: ";
@@ -105,39 +118,27 @@ namespace ZombieManager
                 Console.ForegroundColor = ConsoleColor.Green;
             }
 
+            Vector2 middle = Vector2.Add(fieldStart, Vector2.Div(fieldSize, 2));
+            string retryText = "Play again? Press y/n";
+
             Console.SetCursorPosition(
-                fieldStart.X + (fieldSize.X / 2) - (finishText.Length / 2) - (elapsedTime.Length / 2) - 4,
-                fieldStart.Y + (fieldSize.Y / 2)
+                middle.X - (finishText.Length / 2) - (elapsedTime.Length / 2),
+                middle.Y
             );
-            Console.Write(finishText + elapsedTime);
+            Console.WriteLine(finishText + elapsedTime);
+
+            Console.SetCursorPosition(middle.X - (retryText.Length / 2), middle.Y + 1);
+            Console.WriteLine(retryText);
 
             Console.ResetColor();
+            Console.CursorVisible = true;
 
-            while (Console.ReadKey(true).Key != ConsoleKey.Enter) {}
-        }
-
-        private static Vector2? AskForDirection()
-        {
             ConsoleKey input = Console.ReadKey(true).Key;
-
-            if (input == ConsoleKey.W || input == ConsoleKey.UpArrow)
+            if (input == ConsoleKey.Y)
             {
-                return new Vector2(0, -1);
+                Main(new string[0]);
+                return;
             }
-            else if (input == ConsoleKey.S || input == ConsoleKey.DownArrow)
-            {
-                return new Vector2(0, 1);
-            }
-            else if (input == ConsoleKey.A || input == ConsoleKey.LeftArrow)
-            {
-                return new Vector2(-1, 0);
-            }
-            else if (input == ConsoleKey.D || input == ConsoleKey.RightArrow)
-            {
-                return new Vector2(1, 0);
-            }
-
-            return null;
         }
 
         private static void DrawEntities(Hunter hunter, List<Zombie>? zombies)
@@ -165,6 +166,30 @@ namespace ZombieManager
             Console.BackgroundColor = ConsoleColor.Green;
             Console.Write(" ");
             Console.ResetColor();
+        }
+
+        private static Vector2? AskForDirection()
+        {
+            ConsoleKey input = Console.ReadKey(true).Key;
+
+            if (input == ConsoleKey.W || input == ConsoleKey.UpArrow)
+            {
+                return new Vector2(0, -1);
+            }
+            else if (input == ConsoleKey.S || input == ConsoleKey.DownArrow)
+            {
+                return new Vector2(0, 1);
+            }
+            else if (input == ConsoleKey.A || input == ConsoleKey.LeftArrow)
+            {
+                return new Vector2(-1, 0);
+            }
+            else if (input == ConsoleKey.D || input == ConsoleKey.RightArrow)
+            {
+                return new Vector2(1, 0);
+            }
+
+            return null;
         }
 
         private static int AskForAmount()
