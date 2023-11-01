@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ZombieManager.Humanoid">
+    <Position X="11.25" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAkAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Humanoid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hunter">
+    <Position X="10.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Hunter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZombieManager.Zombie">
+    <Position X="12.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\Zombie.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZombieManager.Vector2">
+    <Position X="8.5" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAkgAAAAAAAAAAAAAAAAAAAAAAAYBA=</HashCode>
+      <FileName>Classes\Vector2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZombieManager.Program">
+    <Position X="13.75" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAIAQAAAAAABAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
