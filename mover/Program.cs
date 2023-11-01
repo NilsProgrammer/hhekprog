@@ -17,9 +17,6 @@ namespace ZombieManager
             Vector2 fieldStart = new Vector2(0, 0);
             Vector2 fieldSize = new Vector2(Console.WindowWidth, Console.WindowHeight);
 
-            hunter.Position.X = random.Next(fieldStart.X, fieldSize.X);
-            hunter.Position.Y = random.Next(fieldStart.Y, fieldSize.Y);
-
             if (OperatingSystem.IsWindows())
             {
                 Console.SetBufferSize(fieldSize.X, fieldSize.Y);
@@ -36,6 +33,8 @@ namespace ZombieManager
             Console.WriteLine("Zombies");
             Console.ResetColor();
             Console.WriteLine("Use ESCAPE to surrender");
+
+            Console.WriteLine();
             
             //Ask for zombie amount and generate zombies
             Console.WriteLine("How many zombies do you want?");
