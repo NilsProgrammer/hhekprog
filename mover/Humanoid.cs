@@ -1,42 +1,26 @@
 namespace ZombieManager;
 public class Humanoid
 {
-    private double health = 100;
-    private double maxHealth = 100;
-
     public string Name { get; set; }
     public Vector2 Position { get; set; } = new Vector2();
-    public double Damage { get; set; } = 10;
-    public double Health
-    {
-        get
-        {
-            return health;
-        }
-        set
-        {
-            if (value > maxHealth) { return; }
-            health = maxHealth;
-        }
-    }
-    public double MaxHealth
-    {
-        get
-        {
-            return maxHealth;
-        }
-        set
-        {
-            if (value < 0) { return; }
-            maxHealth = value;
-        }
-    }
 
     protected Humanoid()
     {
         Name = "Humanoid";
     }
 
+    protected Humanoid(string name, Vector2 position)
+    {
+        Name = name;
+        Position = position;
+    }
+
+    public override string ToString()
+    {
+        return GetType() + "(Name=" + Name + ", Position=" + Position.ToString() + ")";
+    }
+
+    /*
     public void Attack<T>(T entity, double? amount) where T : Humanoid
     {
         entity.TakeDamage(amount ?? Damage);
@@ -46,4 +30,5 @@ public class Humanoid
     {
         Health -= damage;
     }
+    */
 }
