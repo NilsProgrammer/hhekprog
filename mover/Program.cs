@@ -28,7 +28,7 @@ namespace ZombieManager
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Hunter");
             Console.ResetColor();
-            Console.Write("To kill the ");
+            Console.Write("To kill (move over) the ");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Zombies");
             Console.ResetColor();
@@ -145,9 +145,8 @@ namespace ZombieManager
             if (lastPosition != null)
             {
                 Console.SetCursorPosition(lastPosition.X, lastPosition.Y);
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.Write(" ");
                 Console.ResetColor();
+                Console.Write(" ");
             }
 
             zombies?.ForEach(zombie => {
