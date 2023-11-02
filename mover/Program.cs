@@ -8,7 +8,7 @@ namespace ZombieManager
         static public void Main(string[] args)
         {
             Console.Clear();
-            
+
             //Setup game variables
 
             Random random = new Random();
@@ -35,7 +35,7 @@ namespace ZombieManager
             Console.WriteLine("Use ESCAPE to surrender");
 
             Console.WriteLine();
-            
+
             //Ask for zombie amount and generate zombies
             Console.WriteLine("How many zombies do you want?");
             int zombieAmount = AskForAmount();
@@ -105,21 +105,11 @@ namespace ZombieManager
                 stopwatch.Elapsed.Milliseconds / 100
             );
 
-            string finishText = "";
-            if (canceled)
-            {
-                finishText = "Game over, elapsed time: ";
-                Console.ForegroundColor = ConsoleColor.Red;
-            }
-            else
-            {
-                finishText = "Game won, elapsed time: ";
-                Console.ForegroundColor = ConsoleColor.Green;
-            }
-
-            Vector2 middle = Vector2.Add(fieldStart, Vector2.Div(fieldSize, 2));
+            string finishText = canceled ? "Game over, elapsed time: " : "Game won, elapsed time: ";
             string retryText = "Play again? Press y/n";
+            Vector2 middle = Vector2.Add(fieldStart, Vector2.Div(fieldSize, 2));
 
+            Console.ForegroundColor = canceled ? ConsoleColor.Red : ConsoleColor.Green;
             Console.SetCursorPosition(
                 middle.X - (finishText.Length / 2) - (elapsedTime.Length / 2),
                 middle.Y
@@ -135,7 +125,7 @@ namespace ZombieManager
             ConsoleKey input = Console.ReadKey(true).Key;
             if (input == ConsoleKey.Y)
             {
-                Main(new string[0]);
+                Main(Array.Empty<string>());
                 return;
             }
         }
