@@ -122,8 +122,8 @@ namespace ZombieManager
             Console.ResetColor();
             Console.CursorVisible = true;
 
-            ConsoleKey input = Console.ReadKey(true).Key;
-            if (input == ConsoleKey.Y)
+            string? input = Console.ReadLine();
+            if (input != null && input.ToLower().Equals("y"))
             {
                 Main(Array.Empty<string>());
                 return;
